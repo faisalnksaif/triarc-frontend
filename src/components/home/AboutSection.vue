@@ -15,16 +15,14 @@
           </div>
         </v-col>
         <v-col cols="12" md="6">
-          <div class="about-image-wrapper">
-            <v-img
-              :src="aboutData.image"
-              :alt="aboutData.imageCaption"
-              cover
-              class="about-image"
-            />
-            <div class="about-image-caption">
-              {{ aboutData.imageCaption }}
+          <div class="about-hero-callout">
+            <div class="hero-icon">
+              <v-icon size="56" color="primary">mdi-office-building-cog</v-icon>
             </div>
+            <h3 class="hero-headline">Built for Precision. Delivered with Care.</h3>
+            <p class="hero-body">
+              We engineer and construct resilient spaces—combining rigorous QA, safety-first site culture, and transparent delivery so every project feels premium, predictable, and enduring.
+            </p>
           </div>
         </v-col>
       </v-row>
@@ -117,48 +115,67 @@ const { aboutData } = storeToRefs(aboutStore)
   }
 }
 
-.about-image-wrapper {
-  position: relative;
-  overflow: hidden;
+.about-hero-callout {
+  padding: 2rem;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
   animation: slideInFromRight 0.8s ease-out;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   
   @media (max-width: 768px) {
     animation: mobileGhostPulse 1.2s ease-out !important;
-  }
-  
-  &:hover {
-    .about-image {
-      transform: scale(1.08);
-    }
+    padding: 1.5rem;
   }
 }
 
-.about-image {
-  width: 100%;
-  height: 500px;
-  transition: transform 0.6s ease;
-  
-  @media (max-width: 960px) {
-    height: 400px;
-  }
+.hero-icon {
+  width: 68px;
+  height: 68px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: rgba(170, 132, 83, 0.14);
+  border: 1px solid rgba(170, 132, 83, 0.45);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
 }
 
-.about-image-caption {
-  position: absolute;
-  bottom: 2rem;
-  right: 2rem;
-  background-color: rgba(0, 0, 0, 0.8);
+.hero-headline {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 1px;
   color: #ffffff;
-  padding: 1rem 2rem;
-  font-size: 0.875rem;
-  letter-spacing: 2px;
-  font-weight: 500;
-  
-  @media (max-width: 600px) {
-    bottom: 1rem;
-    right: 1rem;
-    padding: 0.75rem 1.5rem;
-    font-size: 0.75rem;
-  }
+  line-height: 1.4;
+}
+
+.hero-body {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.7;
+  font-size: 1rem;
+}
+
+.hero-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 0.9rem;
+  background: rgba(170, 132, 83, 0.12);
+  border: 1px solid rgba(170, 132, 83, 0.35);
+  border-radius: 999px;
+  color: #f5e9d8;
+  font-size: 0.9rem;
+  letter-spacing: 0.2px;
 }
 </style>

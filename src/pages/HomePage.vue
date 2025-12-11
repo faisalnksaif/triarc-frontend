@@ -204,46 +204,27 @@
               <h2 class="section-title text-center">GET IN TOUCH</h2>
               <v-card class="contact-card" elevation="0">
                 <v-card-text>
-                  <v-form>
+                  <v-form @submit.prevent="sendWhatsApp">
                     <v-row>
-                      <v-col cols="12" sm="6">
-                        <v-text-field
-                          label="Your Name"
-                          variant="outlined"
-                          color="primary"
-                        />
-                      </v-col>
-                      <v-col cols="12" sm="6">
-                        <v-text-field
-                          label="Your Email"
-                          type="email"
-                          variant="outlined"
-                          color="primary"
-                        />
-                      </v-col>
-                      <v-col cols="12">
-                        <v-text-field
-                          label="Subject"
-                          variant="outlined"
-                          color="primary"
-                        />
-                      </v-col>
                       <v-col cols="12">
                         <v-textarea
-                          label="Message"
+                          v-model="message"
+                          label="Your Message"
                           variant="outlined"
                           color="primary"
-                          rows="5"
+                          rows="6"
                         />
                       </v-col>
                       <v-col cols="12">
                         <v-btn
+                          type="submit"
                           color="primary"
                           size="large"
                           block
                           class="contact-submit"
+                          prepend-icon="mdi-whatsapp"
                         >
-                          SEND MESSAGE
+                          SEND VIA WHATSAPP
                         </v-btn>
                       </v-col>
                     </v-row>
@@ -257,6 +238,19 @@
     </main>
 
     <AppFooter />
+
+    <!-- Floating WhatsApp Button -->
+    <v-btn
+      icon
+      size="x-large"
+      color="primary"
+      class="whatsapp-float"
+      href="https://wa.me/911234567890"
+      target="_blank"
+      elevation="8"
+    >
+      <v-icon size="32">mdi-whatsapp</v-icon>
+    </v-btn>
   </div>
 </template>
 
@@ -278,6 +272,7 @@ import { useProjectsStore } from '@/stores/projectsStore'
 import { useServicesStore } from '@/stores/servicesStore'
 import { useNewsStore } from '@/stores/newsStore'
 import { useTestimonialsStore } from '@/stores/testimonialsStore'
+import { ref } from 'vue'
 
 const projectsStore = useProjectsStore()
 const servicesStore = useServicesStore()
@@ -288,6 +283,15 @@ const { finishedProjects, ongoingProjects, upcomingProjects } = storeToRefs(proj
 const { services } = storeToRefs(servicesStore)
 const { articles } = storeToRefs(newsStore)
 const { testimonials } = storeToRefs(testimonialsStore)
+
+const message = ref('')
+
+const sendWhatsApp = () => {
+  const phoneNumber = '911234567890' // WhatsApp number (with country code, no + or spaces)
+  const text = encodeURIComponent(message.value || 'Hello, I would like to inquire about your services.')
+  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${text}`
+  window.open(whatsappUrl, '_blank')
+}
 </script>
 
 <style scoped lang="scss">
@@ -553,5 +557,23 @@ const { testimonials } = storeToRefs(testimonialsStore)
 
 :deep(.v-label) {
   color: rgba(255, 255, 255, 0.6);
+}
+
+.whatsapp-float {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 1000;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 24px rgba(170, 132, 83, 0.5) !important;
+  }
+  
+  @media (max-width: 600px) {
+    bottom: 20px;
+    right: 20px;
+  }
 }
 </style>

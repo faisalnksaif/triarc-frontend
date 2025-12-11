@@ -1,5 +1,11 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
+import exterior1 from '@/assets/images/EXTERIOR VIEW 1.jpg'
+import exterior2 from '@/assets/images/EXTERIOR VIEW 2.jpg'
+import exterior3 from '@/assets/images/EXTERIOR VIEW 3.jpg'
+import exteriorOption from '@/assets/images/EXTERIOR VIEW OPTION 2-3.jpg'
+import frontView from '@/assets/images/FRONT VIEW.jpg'
+import scene2 from '@/assets/images/Scene 2.png'
 
 export const useProjectsStore = defineStore('projects', () => {
   const finishedProjects = ref([
@@ -32,21 +38,39 @@ export const useProjectsStore = defineStore('projects', () => {
   const ongoingProjects = ref([
     {
       id: 5,
-      title: 'TECH PARK',
-      category: 'COMMERCIAL',
-      image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80',
+      title: 'Flagship Tower',
+      category: 'Residential',
+      image: exterior1,
     },
     {
       id: 6,
-      title: 'APARTMENT COMPLEX',
-      category: 'RESIDENTIAL',
-      image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80',
+      title: 'Skyline Residences',
+      category: 'Residential',
+      image: exterior2,
     },
     {
       id: 7,
-      title: 'SHOPPING MALL',
-      category: 'COMMERCIAL',
-      image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=80',
+      title: 'Harborfront Plaza',
+      category: 'Residential',
+      image: exterior3,
+    },
+    {
+      id: 8,
+      title: 'Atrium Heights',
+      category: 'Residential',
+      image: exteriorOption,
+    },
+    {
+      id: 9,
+      title: 'Frontier Villas',
+      category: 'Residential',
+      image: frontView,
+    },
+    {
+      id: 10,
+      title: 'Civic Hub',
+      category: 'Residential',
+      image: scene2,
     },
   ])
 

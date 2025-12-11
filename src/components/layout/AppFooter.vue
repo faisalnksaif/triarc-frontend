@@ -14,10 +14,10 @@
 
         <v-col cols="12" md="4" class="text-center">
           <div class="footer-info">
-            <v-icon color="primary" size="24">mdi-email</v-icon>
+            <v-icon color="primary" size="24">mdi-whatsapp</v-icon>
             <div class="footer-info-text">
-              <span class="footer-label">Email</span>
-              <a href="mailto:info@triarc.com" class="footer-link">info@triarc.com</a>
+              <span class="footer-label">WhatsApp</span>
+              <a href="https://wa.me/911234567890" target="_blank" class="footer-link">+91-1234567890</a>
             </div>
           </div>
         </v-col>

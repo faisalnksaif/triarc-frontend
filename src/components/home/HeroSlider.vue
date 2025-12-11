@@ -18,14 +18,14 @@
                   <span class="hero-subtitle">{{ slide.subtitle }}</span>
                 </h1>
                 <p class="hero-description">{{ slide.description }}</p>
-                <v-btn
+                <!-- <v-btn
                   size="large"
                   color="primary"
                   class="mt-8 hero-cta"
                   elevation="0"
                 >
                   DISCOVER MORE
-                </v-btn>
+                </v-btn> -->
               </div>
             </transition>
           </v-col>
@@ -90,15 +90,15 @@ onUnmounted(() => {
 <style scoped lang="scss">
 .hero-slider {
   position: relative;
-  height: 100vh;
+  height: 90vh;
   overflow: hidden;
   
   @media (max-width: 768px) {
-    height: 85vh;
+    height: 90vh;
   }
   
   @media (max-width: 600px) {
-    height: 60vh;
+    height: 90vh;
   }
 }
 

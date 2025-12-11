@@ -1,5 +1,5 @@
 <template>
-  <section class="stats-section">
+  <section class="stats-section" ref="statsSection">
     <v-container>
       <h2 v-motion:fadeInDown class="stats-title">KEY METRICS</h2>
       <v-row justify="center">
@@ -8,7 +8,7 @@
             <div class="stat-icon">
               <v-icon :icon="stat.icon" size="48"></v-icon>
             </div>
-            <div class="stat-number">{{ stat.number }}</div>
+            <div class="stat-number">{{ formatDisplay(index, stat) }}</div>
             <div class="stat-label">{{ stat.label }}</div>
           </div>
         </v-col>
@@ -18,34 +18,97 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 
 const stats = ref([
   {
     id: 1,
     icon: 'mdi-briefcase',
-    number: '150+',
+    target: 150,
+    suffix: '+',
+    decimals: 0,
+    duration: 1200,
     label: 'COMPLETED PROJECTS'
   },
   {
     id: 2,
     icon: 'mdi-account-group',
-    number: '50+',
+    target: 50,
+    suffix: '+',
+    decimals: 0,
+    duration: 1200,
     label: 'TEAM MEMBERS'
   },
   {
     id: 3,
     icon: 'mdi-trophy',
-    number: '25+',
+    target: 25,
+    suffix: '+',
+    decimals: 0,
+    duration: 1200,
     label: 'AWARDS WON'
   },
   {
     id: 4,
     icon: 'mdi-star',
-    number: '4.9/5',
+    target: 4.9,
+    suffix: '/5',
+    decimals: 1,
+    duration: 1200,
     label: 'CLIENT RATING'
   }
 ])
+
+const displayNumbers = ref(stats.value.map(() => 0))
+const hasAnimated = ref(false)
+const statsSection = ref(null)
+let observer
+let rafIds = []
+
+const animateNumber = (index, target, duration = 1200, decimals = 0) => {
+  const start = performance.now()
+  const step = (now) => {
+    const progress = Math.min((now - start) / duration, 1)
+    const eased = 1 - Math.pow(1 - progress, 3) // ease-out cubic
+    displayNumbers.value[index] = target * eased
+    if (progress < 1) {
+      rafIds[index] = requestAnimationFrame(step)
+    }
+  }
+  rafIds[index] = requestAnimationFrame(step)
+}
+
+const startAnimations = () => {
+  if (hasAnimated.value) return
+  hasAnimated.value = true
+  stats.value.forEach((stat, idx) => {
+    animateNumber(idx, stat.target, stat.duration, stat.decimals)
+  })
+}
+
+const formatDisplay = (index, stat) => {
+  const value = displayNumbers.value[index] || 0
+  const formatted = stat.decimals ? value.toFixed(stat.decimals) : Math.round(value)
+  return `${formatted}${stat.suffix || ''}`
+}
+
+onMounted(() => {
+  if (!statsSection.value) return
+  observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        startAnimations()
+      }
+    })
+  }, { threshold: 0.3 })
+
+  observer.observe(statsSection.value)
+})
+
+onUnmounted(() => {
+  if (observer && statsSection.value) observer.unobserve(statsSection.value)
+  rafIds.forEach((id) => cancelAnimationFrame(id))
+})
 </script>
 
 <style scoped lang="scss">
