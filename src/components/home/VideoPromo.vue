@@ -21,7 +21,7 @@
 .video-promo-section {
   position: relative;
   height: 500px;
-  background-image: url('@/assets/images/EXTERIOR VIEW 1.jpg');
+  background-image: url('@/assets/images/projects/2.jpg');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;

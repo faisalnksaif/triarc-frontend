@@ -54,12 +54,6 @@ const isMobile = computed(() => mobile.value)
     animation: mobileCardSlide 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
   }
   
-  &:hover {
-    transform: translateY(-8px);
-    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    border-color: rgba(170, 132, 83, 0.6);
-    box-shadow: 0 15px 35px rgba(170, 132, 83, 0.1);
-  }
 }
 
 .project-image-wrapper {
@@ -72,6 +66,12 @@ const isMobile = computed(() => mobile.value)
   
   &--hover {
     transform: scale(1.1);
+  }
+
+  @media (max-width: 768px) {
+    &--hover {
+      transform: none;
+    }
   }
 }
 
@@ -90,6 +90,12 @@ const isMobile = computed(() => mobile.value)
   
   &--hover {
     opacity: 1;
+  }
+
+  @media (max-width: 768px) {
+    &--hover {
+      opacity: 0;
+    }
   }
 }
 

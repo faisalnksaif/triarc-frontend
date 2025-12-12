@@ -1,5 +1,5 @@
 <template>
-  <section id="active-areas" class="active-areas-section">
+  <section ref="sectionRef" id="active-areas" class="active-areas-section" :class="{ 'is-visible': isVisible }">
     <div>
 
       <div class="map-wrapper">
@@ -14,7 +14,8 @@
 </template>
 
 <script setup>
-import { onMounted, onUnmounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref, watch } from 'vue'
+import { useDisplay } from 'vuetify'
 
 // Provide your Mapbox access token via prop or env
 // You can replace this with import.meta.env.VITE_MAPBOX_TOKEN
@@ -23,9 +24,13 @@ const props = defineProps({
 })
 
 const mapContainer = ref(null)
+const sectionRef = ref(null)
 let map
 let animationFrameId
 const errorMsg = ref('')
+const isVisible = ref(false)
+const mapLoaded = ref(false)
+const { mobile } = useDisplay()
 
 // Approximate coordinates for operating areas
 const activeAreas = [
@@ -63,7 +68,56 @@ const activeAreas = [
 ]
 
 onMounted(() => {
+  // Setup Intersection Observer for scroll animation
+  if (sectionRef.value) {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !isVisible.value) {
+          isVisible.value = true
+          observer.unobserve(entry.target)
+        }
+      },
+      { threshold: 0.1 }
+    )
+    observer.observe(sectionRef.value)
+  }
+  
   initMap()
+})
+
+// Watch for visibility and animate maxZoom when section comes into view
+watch([isVisible, mapLoaded], ([visible, loaded]) => {
+  if (visible && loaded && map) {
+    console.log('Starting zoom animation...')
+    // Add small delay to ensure map is fully ready
+    setTimeout(() => {
+      const startTime = Date.now()
+      const duration = 1000
+      const targetMaxZoom = 15//mobile.value ? 8 : 4
+      
+      const animateZoom = () => {
+        const elapsed = Date.now() - startTime
+        const progress = Math.min(elapsed / duration, 1)
+        
+        // Animate zoom from 0 to 3
+        const currentZoom = progress * 6
+        // Animate maxZoom from 0 to targetMaxZoom (6 on mobile, 4 on desktop)
+        const currentMaxZoom = progress * targetMaxZoom
+        
+        console.log('Zoom:', currentZoom, 'MaxZoom:', currentMaxZoom)
+        map.setZoom(currentZoom)
+        map.setMaxZoom(currentMaxZoom)
+        
+        if (progress < 1) {
+          requestAnimationFrame(animateZoom)
+        } else {
+          console.log('Zoom animation complete')
+        }
+      }
+      
+      animateZoom()
+    }, 100)
+  }
 })
 
 async function initMap() {
@@ -95,10 +149,19 @@ async function initMap() {
       style: 'mapbox://styles/mapbox/dark-v11',
       center: [77.5, 12.5],
       zoom: 0,
+      maxZoom: 0,
       attributionControl: false,
+      scrollZoom: false,
+      doubleClickZoom: false,
+      touchZoom: true,
+      dragPan: false,
+      dragRotate: false,
+      keyboard: false,
     })
 
     map.on('load', () => {
+      console.log('Map loaded')
+      mapLoaded.value = true
       const bounds = new window.mapboxgl.LngLatBounds()
 
       // Add yellow circle dots for active areas
@@ -167,7 +230,7 @@ async function initMap() {
       animateHeartbeat()
 
       if (!bounds.isEmpty()) {
-        map.fitBounds(bounds, { padding: 10, maxZoom: 4, duration: 1200 })
+        map.fitBounds(bounds, { padding: 10, maxZoom: 0, duration: 1200 })
       }
     })
 

@@ -1,10 +1,18 @@
 <template>
   <div class="home-page">
+    <!-- Loading Overlay -->
+    <div v-if="showLoading" class="loading-overlay" :class="{ 'loading-overlay--animating': animatingLogo }">
+      <div class="loading-logo" :style="logoStyle">
+        <img src="@/assets/images/logo.png" alt="Triarc Loading" class="loading-logo-img" />
+        <v-progress-circular v-if="showLoading && !animatingLogo" indeterminate color="#aa8453" class="loading-spinner" />
+      </div>
+    </div>
+
     <AppHeader />
 
     <main>
       <!-- Hero Section -->
-      <HeroSlider />
+      <HeroSlider @images-loaded="onHeroImagesLoaded" />
 
       <!-- About Section -->
       <AboutSection />
@@ -16,23 +24,7 @@
       <WhyChooseUs />
 
       <!-- Projects Section -->
-      <section id="projects" class="section projects-section">
-        <div>
-          <h2 v-motion:fadeInUp class="section-title text-center">OUR PROJECTS</h2>
-
-          <div class="projects-subsection">
-            <div class="projects-marquee" @mouseenter="marqueePaused = true" @mouseleave="marqueePaused = false">
-              <div class="projects-track" :class="{ paused: marqueePaused }">
-                <div v-for="(project, idx) in marqueeItems" :key="`marquee-${idx}-${project.id}`" class="projects-item">
-                  <ProjectCard :project="project" />
-                </div>
-              </div>
-            </div>
-          </div>
-
-
-        </div>
-      </section>
+      <ProjectsSection />
 
            <!-- Active Areas Map -->
       <ActiveAreasMap />
@@ -138,10 +130,11 @@
 
 <script setup>
 import { storeToRefs } from 'pinia'
+import { ref, onMounted, onBeforeUnmount, computed } from 'vue'
 import AppHeader from '@/components/layout/AppHeader.vue'
 import AppFooter from '@/components/layout/AppFooter.vue'
 import HeroSlider from '@/components/home/HeroSlider.vue'
-import ProjectCard from '@/components/home/ProjectCard.vue'
+import ProjectsSection from '@/components/home/ProjectsSection.vue'
 import ServiceCard from '@/components/home/ServiceCard.vue'
 import NewsCard from '@/components/home/NewsCard.vue'
 import TestimonialCard from '@/components/home/TestimonialCard.vue'
@@ -151,30 +144,53 @@ import StatsSection from '@/components/home/StatsSection.vue'
 import WhyChooseUs from '@/components/home/WhyChooseUs.vue'
 import CallToActionSection from '@/components/home/CallToActionSection.vue'
 import ActiveAreasMap from '@/components/home/ActiveAreasMap.vue'
-import { useProjectsStore } from '@/stores/projectsStore'
 import { useServicesStore } from '@/stores/servicesStore'
 import { useNewsStore } from '@/stores/newsStore'
 import { useTestimonialsStore } from '@/stores/testimonialsStore'
-import { ref, computed } from 'vue'
 
-const projectsStore = useProjectsStore()
 const servicesStore = useServicesStore()
 const newsStore = useNewsStore()
 const testimonialsStore = useTestimonialsStore()
 
-const { finishedProjects, ongoingProjects, upcomingProjects } = storeToRefs(projectsStore)
 const { services } = storeToRefs(servicesStore)
 const { articles } = storeToRefs(newsStore)
 const { testimonials } = storeToRefs(testimonialsStore)
 
 const message = ref('')
+const showLoading = ref(true)
+const animatingLogo = ref(false)
+const imagesLoaded = ref(false)
 
-// Marquee: duplicate items for seamless infinite scroll
-const marqueePaused = ref(false)
-const marqueeItems = computed(() => {
-  const items = ongoingProjects.value || []
-  // Duplicate list to allow continuous loop
-  return [...items, ...items]
+const logoStyle = computed(() => ({
+  transform: animatingLogo.value ? 'translate(calc(-50vw + 56px), calc(-50vh + 40px)) scale(0.4)' : 'translate(0, 0) scale(1)',
+  opacity: animatingLogo.value ? 0 : 1,
+}))
+
+const onHeroImagesLoaded = () => {
+  console.log('Hero images loaded')
+  imagesLoaded.value = true
+  // Small delay before starting animation
+  setTimeout(() => {
+    console.log('Starting logo animation to appbar')
+    animatingLogo.value = true
+  }, 300)
+  // Hide loading overlay after animation completes
+  setTimeout(() => {
+    console.log('Hiding loading overlay')
+    showLoading.value = false
+  }, 1200)
+}
+
+onMounted(() => {
+  // Fallback: hide loading after max wait time
+  const maxWaitTimeout = setTimeout(() => {
+    if (showLoading.value) {
+      console.log('Timeout: hiding loading overlay')
+      showLoading.value = false
+    }
+  }, 5000)
+
+  onBeforeUnmount(() => clearTimeout(maxWaitTimeout))
 })
 
 const sendWhatsApp = () => {
@@ -199,147 +215,6 @@ const sendWhatsApp = () => {
 
   @media (max-width: 600px) {
     padding: 2rem 0;
-  }
-}
-
-.projects-section {
-  background-color: #272727;
-  padding: 4rem 0 0 0;
-  padding-bottom: 0 !important;
-
-  @media (max-width: 960px) {
-    padding: 2.5rem 0;
-  }
-
-  @media (max-width: 600px) {
-    padding: 1.5rem 0;
-  }
-}
-
-.projects-subsection {
-  margin-bottom: 3rem;
-  animation: fadeInUp 0.8s ease-out;
-  animation-fill-mode: both;
-
-  @media (max-width: 960px) {
-    margin-bottom: 2rem;
-  }
-
-  @media (max-width: 600px) {
-    margin-bottom: 1.5rem;
-  }
-
-  &:nth-child(2) {
-    animation-delay: 0.1s;
-  }
-
-
-  /* Marquee styles */
-  .projects-marquee {
-    overflow: hidden;
-    width: 100%;
-  }
-
-  .projects-track {
-    display: flex;
-    gap: 0;
-    will-change: transform;
-    animation: marquee-scroll 25s linear infinite;
-  }
-
-  .projects-track.paused {
-    animation-play-state: paused;
-  }
-
-  .projects-item {
-    flex: 0 0 33.3333%;
-    display: block;
-  }
-
-  .carousel-project-wrapper {
-    width: 100%;
-    display: block;
-  }
-
-  /* Ensure inner card/components expand to full column width */
-  .projects-item>* {
-    width: 100% !important;
-  }
-
-  .projects-item .v-card,
-  .projects-item .project-card {
-    width: 100% !important;
-  }
-
-  .projects-item img,
-  .projects-item .v-img {
-    width: 100% !important;
-    height: auto;
-  }
-
-  @media (max-width: 960px) {
-    .projects-item {
-      flex: 0 0 50%;
-    }
-  }
-
-  @media (max-width: 600px) {
-    .projects-item {
-      flex: 0 0 100%;
-    }
-  }
-
-  @keyframes marquee-scroll {
-    0% {
-      transform: translateX(0);
-    }
-
-    100% {
-      transform: translateX(-50%);
-    }
-  }
-
-  &:nth-child(3) {
-    animation-delay: 0.2s;
-  }
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-}
-
-.subsection-title {
-  font-size: 1.5rem;
-  font-weight: 400;
-  letter-spacing: 2px;
-  color: #aa8453;
-  text-align: center;
-  margin-bottom: 2.5rem;
-  position: relative;
-  animation: fadeInDown 0.6s ease-out;
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -1rem;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 2px;
-    background-color: #aa8453;
-    animation: underlineExpand 0.8s ease-out 0.3s forwards;
-    transform-origin: left;
-    opacity: 0;
-  }
-
-  @media (max-width: 960px) {
-    font-size: 1.2rem;
-    margin-bottom: 1.5rem;
-  }
-
-  @media (max-width: 600px) {
-    font-size: 1rem;
-    margin-bottom: 1rem;
   }
 }
 
@@ -507,6 +382,65 @@ const sendWhatsApp = () => {
 
 :deep(.v-field) {
   border-radius: 0;
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 0.6s ease-out;
+
+  &.loading-overlay--animating {
+    pointer-events: none;
+  }
+}
+
+.loading-logo {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-left: -75px;
+  margin-top: -75px;
+  width: 150px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: transform, opacity;
+}
+
+.loading-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: brightness(1.1);
+}
+
+.loading-spinner {
+  position: absolute;
+  bottom: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 :deep(.v-field__outline) {

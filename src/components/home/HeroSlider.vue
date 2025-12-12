@@ -46,7 +46,7 @@
 </template>
 
 <script setup>
-import { onMounted, onUnmounted } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import { useHeroStore } from '@/stores/heroStore'
 import { storeToRefs } from 'pinia'
 
@@ -54,9 +54,29 @@ const heroStore = useHeroStore()
 const { slides, currentSlide } = storeToRefs(heroStore)
 const { nextSlide, prevSlide, goToSlide } = heroStore
 
+const emit = defineEmits(['images-loaded'])
+const imagesLoadedCount = ref(0)
+
 let interval
 
+const checkImagesLoaded = () => {
+  imagesLoadedCount.value++
+  // Emit when all slide images are loaded
+  if (imagesLoadedCount.value === slides.value.length) {
+    console.log('All hero images loaded')
+    emit('images-loaded')
+  }
+}
+
 onMounted(() => {
+  // Track image loads
+  slides.value.forEach((slide) => {
+    const img = new Image()
+    img.onload = checkImagesLoaded
+    img.onerror = checkImagesLoaded // Also count errors to avoid infinite wait
+    img.src = slide.image
+  })
+
   // Auto-play slider every 5 seconds
   interval = setInterval(() => {
     nextSlide()
