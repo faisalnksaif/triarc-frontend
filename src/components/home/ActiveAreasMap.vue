@@ -1,6 +1,7 @@
 <template>
   <section ref="sectionRef" id="active-areas" class="active-areas-section" :class="{ 'is-visible': isVisible }">
     <div>
+      <h2 v-motion:fadeInUp class="section-title text-center mt-15 mb-10">Active Locations</h2>
 
       <div class="map-wrapper">
         <div ref="mapContainer" class="map-container"></div>
@@ -81,7 +82,7 @@ onMounted(() => {
     )
     observer.observe(sectionRef.value)
   }
-  
+
   initMap()
 })
 
@@ -91,23 +92,23 @@ watch([isVisible, mapLoaded], ([visible, loaded]) => {
     setTimeout(() => {
       const startTime = Date.now()
       const duration = 1000
-      const targetMaxZoom = mobile.value ? 8 : 6
-      const targetZoom = mobile.value ? 6 : 6
-      
+      const targetMaxZoom = mobile.value ? 8 : 7
+      const targetZoom = mobile.value ? 6.5 : 6.5
+
       const animateZoom = () => {
         const elapsed = Date.now() - startTime
         const progress = Math.min(elapsed / duration, 1)
         const currentZoom = progress * targetZoom
         const currentMaxZoom = progress * targetMaxZoom
-        
+
         map.setZoom(currentZoom)
         map.setMaxZoom(currentMaxZoom)
-        
+
         if (progress < 1) {
           requestAnimationFrame(animateZoom)
         }
       }
-      
+
       animateZoom()
     }, 100)
   }
@@ -133,7 +134,7 @@ async function initMap() {
 
     // Remove existing map instance before re-init
     if (map) {
-      try { map.remove() } catch {}
+      try { map.remove() } catch { }
       map = null
     }
 
@@ -165,13 +166,13 @@ async function initMap() {
           geometry: { type: 'Point', coordinates: area.coords },
         })),
       }
-      
+
       activeAreas.forEach((area) => {
         bounds.extend(area.coords)
       })
 
       map.addSource('active-circles', { type: 'geojson', data: circles })
-      
+
       // Outer pulse ring
       map.addLayer({
         id: 'active-circles-pulse',
@@ -184,7 +185,7 @@ async function initMap() {
           'circle-blur': 0.5,
         },
       })
-      
+
       // Main active dots
       map.addLayer({
         id: 'active-circles-layer',
@@ -203,7 +204,7 @@ async function initMap() {
       // Animate the heartbeat effect
       let pulseSize = 4
       let growing = true
-      
+
       const animateHeartbeat = () => {
         if (growing) {
           pulseSize += 0.15
@@ -212,13 +213,13 @@ async function initMap() {
           pulseSize -= 0.15
           if (pulseSize <= 4) growing = true
         }
-        
+
         map.setPaintProperty('active-circles-pulse', 'circle-radius', pulseSize)
         map.setPaintProperty('active-circles-pulse', 'circle-opacity', 0.4 - (pulseSize - 4) * 0.08)
-        
+
         requestAnimationFrame(animateHeartbeat)
       }
-      
+
       animateHeartbeat()
 
       if (!bounds.isEmpty()) {
@@ -270,12 +271,29 @@ function loadCSSOnce(id, href) {
   background-color: #272727;
 }
 
+.section-header {
+  text-align: center;
+  color: #ffffff;
+  padding: 2rem 1rem 1rem;
+}
+
+.section-title {
+ 
+  margin: 0 0 0.35rem;
+}
+
+.section-subtitle {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1rem;
+}
+
 .map-wrapper {
   position: relative;
 }
 
 .map-container {
-  height: 420px;
+  height: 80vh;
   overflow: hidden;
 }
 
@@ -321,11 +339,13 @@ function loadCSSOnce(id, href) {
 }
 
 @keyframes marker-pulse {
+
   0%,
   100% {
     transform: scale(1);
     box-shadow: 0 0 12px rgba(170, 132, 83, 0.6);
   }
+
   50% {
     transform: scale(1.6);
     box-shadow: 0 0 18px rgba(170, 132, 83, 0.85);
@@ -337,10 +357,12 @@ function loadCSSOnce(id, href) {
     transform: scale(0.6);
     opacity: 0.7;
   }
+
   70% {
     transform: scale(2.1);
     opacity: 0;
   }
+
   100% {
     transform: scale(2.1);
     opacity: 0;

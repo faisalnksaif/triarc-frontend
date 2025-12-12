@@ -1,12 +1,15 @@
 <template>
   <div class="home-page">
     <!-- Loading Overlay -->
-    <div v-if="showLoading" class="loading-overlay" :class="{ 'loading-overlay--animating': animatingLogo }">
-      <div class="loading-logo" :style="logoStyle">
-        <img src="@/assets/images/logo.png" alt="Triarc Loading" class="loading-logo-img" />
-        <v-progress-circular v-if="showLoading && !animatingLogo" indeterminate color="#aa8453" class="loading-spinner" />
+    <Transition name="loader-fade">
+      <div v-if="showLoading" class="loading-overlay" :class="{ 'loading-overlay--animating': animatingLogo }">
+        <div class="loading-background"></div>
+        <div class="loading-logo" :style="logoStyle">
+          <img src="@/assets/images/logo.png" alt="Triarc Loading" class="loading-logo-img" />
+          <v-progress-circular v-if="showLoading && !animatingLogo" indeterminate color="#aa8453" class="loading-spinner" />
+        </div>
       </div>
-    </div>
+    </Transition>
 
     <AppHeader />
 
@@ -71,7 +74,7 @@
       <!-- Testimonials Section -->
       <section id="testimonials" class="section testimonials-section">
         <v-container>
-          <h2 v-motion:fadeInUp class="section-title text-center">WHAT CLIENT'S SAY?</h2>
+          <h2 v-motion:fadeInUp class="section-title text-center">WHAT CLIENTS SAY?</h2>
           <v-row justify="center">
             <v-col v-motion:scaleIn cols="12" md="10" lg="8">
               <v-carousel height="auto" hide-delimiter-background show-arrows="hover" class="testimonials-carousel"
@@ -378,22 +381,53 @@ const sendWhatsApp = () => {
   border-radius: 0;
 }
 
+.loader-fade-enter-active {
+  transition: opacity 0.3s ease;
+}
+
+.loader-fade-leave-active {
+  transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.loader-fade-enter-from {
+  opacity: 0;
+}
+
+.loader-fade-leave-to {
+  opacity: 0;
+  transform: scale(1.05);
+}
+
 .loading-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: #000;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 9999;
-  opacity: 1;
-  transition: opacity 0.6s ease-out;
+  overflow: hidden;
 
   &.loading-overlay--animating {
     pointer-events: none;
+  }
+}
+
+.loading-background {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, #1a1a1a 0%, #000 70%);
+  animation: backgroundPulse 2s ease-in-out infinite;
+}
+
+@keyframes backgroundPulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.85;
   }
 }
 
@@ -411,13 +445,43 @@ const sendWhatsApp = () => {
   z-index: 10000;
   transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
   will-change: transform, opacity;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -30px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(170, 132, 83, 0.15) 0%, transparent 70%);
+    animation: logoGlow 2s ease-in-out infinite;
+  }
+}
+
+@keyframes logoGlow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
 }
 
 .loading-logo-img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  filter: brightness(1.1);
+  filter: brightness(1.1) drop-shadow(0 0 20px rgba(170, 132, 83, 0.3));
+  animation: logoFloat 3s ease-in-out infinite;
+}
+
+@keyframes logoFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 .loading-spinner {

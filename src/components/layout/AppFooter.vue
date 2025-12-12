@@ -7,7 +7,7 @@
             <v-icon color="primary" size="24">mdi-phone</v-icon>
             <div class="footer-info-text">
               <span class="footer-label">Phone</span>
-              <a href="tel:+91-1234567890" class="footer-link">+91-1234567890</a>
+              <a href="tel:+91-9995884477" class="footer-link">+91-9995884477</a>
             </div>
           </div>
         </v-col>
@@ -38,7 +38,7 @@
       <v-row>
         <v-col cols="12" class="text-center">
           <p class="footer-copyright">
-            © Copyright {{ currentYear }} Triarc. All rights reserved.
+            © Copyright 2018 triarc. All rights reserved.
           </p>
         </v-col>
       </v-row>

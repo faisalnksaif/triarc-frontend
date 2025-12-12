@@ -5,7 +5,7 @@
       <div class="quote-inner">
         <blockquote class="quote-text">
           <v-icon icon="mdi-format-quote-open" class="quote-icon quote-start"></v-icon>
-          We deliver <span class="highlight-word">quality</span> work that reflects our <span class="highlight-word">pride</span> and meets our <span class="highlight-word pulse-word">customers'</span> expectations.
+          We deliver <span class="highlight-word">quality</span> work that reflects our <span class="highlight-word">pride</span> and meets our <span class="highlight-word pulse-word">client's</span> expectations.
           <v-icon icon="mdi-format-quote-close" class="quote-icon quote-end"></v-icon>
         </blockquote>
       </div>
