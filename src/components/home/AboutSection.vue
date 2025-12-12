@@ -5,7 +5,15 @@
         <v-col cols="12" md="6">
           <div class="about-content">
             <h2 class="about-title">
-              {{ aboutData.title }} <span class="about-subtitle">{{ aboutData.subtitle }}</span>
+              {{ aboutData.title }}
+              <span class="about-subtitle">
+                <template v-if="aboutData.subtitleIsImage">
+                  <img :src="aboutData.subtitle" alt="Triarc logo" :width="aboutData.subtitleWidth || 100" class="about-subtitle-logo" />
+                </template>
+                <template v-else>
+                  {{ aboutData.subtitle }}
+                </template>
+              </span>
             </h2>
             <div class="about-text">
               <p v-for="(paragraph, index) in aboutData.paragraphs" :key="index" class="about-paragraph">
@@ -17,12 +25,26 @@
         <v-col cols="12" md="6">
           <div class="about-hero-callout">
             <div class="hero-icon">
-              <v-icon size="56" color="primary">mdi-office-building-cog</v-icon>
+              <v-icon size="56" color="primary">mdi-hammer-wrench</v-icon>
             </div>
-            <h3 class="hero-headline">Built for Precision. Delivered with Care.</h3>
+            <h3 class="hero-headline">Excellence in Execution. Built to Last.</h3>
             <p class="hero-body">
-              We engineer and construct resilient spaces—combining rigorous QA, safety-first site culture, and transparent delivery so every project feels premium, predictable, and enduring.
+              We excel in transforming architectural visions into built reality. With meticulous attention to quality, transparent project management, and deep construction expertise—every project is delivered with precision, predictability, and enduring value.
             </p>
+            <div class="hero-tags">
+              <!-- <span class="hero-tag">
+                <v-icon size="18" color="primary">mdi-shield-check</v-icon>
+                Construction Excellence
+              </span>
+              <span class="hero-tag">
+                <v-icon size="18" color="primary">mdi-calendar-check</v-icon>
+                On-Time Delivery
+              </span> -->
+              <!-- <span class="hero-tag">
+                <v-icon size="18" color="primary">mdi-handshake</v-icon>
+                Architect Partnership
+              </span> -->
+            </div>
           </div>
         </v-col>
       </v-row>
@@ -44,7 +66,7 @@ const { aboutData } = storeToRefs(aboutStore)
   background-color: #272727;
   
   @media (max-width: 960px) {
-    padding: 5rem 0;
+    padding: 3rem 0;
   }
 }
 
@@ -88,6 +110,11 @@ const { aboutData } = storeToRefs(aboutStore)
 .about-subtitle {
   display: inline;
   color: #aa8453;
+}
+
+.about-subtitle-logo {
+  vertical-align: middle;
+  margin-left: -10px;
 }
 
 .about-text {

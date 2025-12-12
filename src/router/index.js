@@ -10,7 +10,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory('/triarc-frontend/'),
   routes,
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {

@@ -5,25 +5,25 @@ export const useServicesStore = defineStore('services', () => {
   const services = ref([
     {
       id: 1,
-      title: 'ARCHITECTURE',
-      description: 'Architecture bibendum eros eget lacus the vulputate sit amet vehicuta nibhen ulicera in the vitae miss.',
+      title: 'COMMERCIAL PROJECTS',
+      description: 'Execution of offices, retail spaces, mixed-use developments, and business parks with high-efficiency delivery and quality finishes.',
       number: '01',
-      icon: 'mdi-office-building',
+      icon: 'mdi-briefcase',
     },
     {
       id: 2,
-      title: 'INTERIOR DESIGN',
-      description: 'Interior bibendum eros eget lacus the vulputate sit amet vehicuta nibhen ulicera in the vitae miss.',
+      title: 'INSTITUTIONAL PROJECTS',
+      description: 'Delivery of schools, hospitals, government facilities, and public infrastructure with rigorous compliance and safety standards.',
       number: '02',
-      icon: 'mdi-sofa',
+      icon: 'mdi-domain',
     },
     {
       id: 3,
-      title: 'URBAN DESIGN',
-      description: 'Urban bibendum eros eget lacus the vulputate sit amet vehicuta nibhen ulicera in the vitae miss.',
+      title: 'RESIDENTIAL PROJECTS',
+      description: 'Construction of villas, apartments, gated communities, and premium residences with precision craftsmanship and on-time delivery.',
       number: '03',
-      icon: 'mdi-city',
-    },
+      icon: 'mdi-home-city',
+    }
   ])
 
   return {

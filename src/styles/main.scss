@@ -549,50 +549,50 @@ body {
 
 // Utility classes for mobile animations
 .mobile-slide-in {
-  animation: mobileCardSlide 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: mobileCardSlide 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   animation-fill-mode: both;
 }
 
 .mobile-pulse {
-  animation: mobilePulseGlow 2s ease-in-out infinite;
+  animation: mobilePulseGlow 0.8s ease-in-out infinite;
 }
 
 .mobile-shimmer {
   background: linear-gradient(90deg, #272727, #aa8453, #272727);
   background-size: 1000px 100%;
-  animation: mobileShimmer 3s infinite;
+  animation: mobileShimmer 1.2s infinite;
 }
 
 .mobile-border-glow {
-  animation: mobileBorderGlow 2.5s ease-in-out infinite;
+  animation: mobileBorderGlow 1.2s ease-in-out infinite;
 }
 
 .mobile-count-up {
-  animation: mobileCountUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: mobileCountUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   animation-fill-mode: both;
 }
 
 .mobile-rotate-in {
-  animation: mobileRotateIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: mobileRotateIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   animation-fill-mode: both;
 }
 
 .mobile-text-wave {
-  animation: mobileTextWave 1s ease-in-out infinite;
+  animation: mobileTextWave 0.5s ease-in-out infinite;
 }
 
 .mobile-liquid-swipe {
-  animation: mobileLiquidSwipe 0.8s ease-out;
+  animation: mobileLiquidSwipe 0.3s ease-out;
   animation-fill-mode: both;
 }
 
 .mobile-ghost-pulse {
-  animation: mobileGhostPulse 1.2s ease-out;
+  animation: mobileGhostPulse 0.5s ease-out;
   animation-fill-mode: both;
 }
 
 .mobile-float-up {
-  animation: mobileFloatUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: mobileFloatUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   animation-fill-mode: both;
 }
 

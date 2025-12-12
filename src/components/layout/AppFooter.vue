@@ -2,7 +2,7 @@
   <footer class="footer">
     <v-container>
       <v-row class="footer-content">
-        <v-col cols="12" md="4" class="text-center">
+        <v-col cols="12" md="4" class="text-md-center">
           <div class="footer-info">
             <v-icon color="primary" size="24">mdi-phone</v-icon>
             <div class="footer-info-text">
@@ -12,17 +12,17 @@
           </div>
         </v-col>
 
-        <v-col cols="12" md="4" class="text-center">
+        <v-col cols="12" md="4" class="text-md-center">
           <div class="footer-info">
             <v-icon color="primary" size="24">mdi-whatsapp</v-icon>
             <div class="footer-info-text">
               <span class="footer-label">WhatsApp</span>
-              <a href="https://wa.me/911234567890" target="_blank" class="footer-link">+91-1234567890</a>
+              <a href="https://wa.me/919995884477" target="_blank" class="footer-link">+91-9995884477</a>
             </div>
           </div>
         </v-col>
 
-        <v-col cols="12" md="4" class="text-center">
+        <v-col cols="12" md="4" class="text-md-center">
           <div class="footer-info">
             <v-icon color="primary" size="24">mdi-map-marker</v-icon>
             <div class="footer-info-text">
@@ -68,6 +68,16 @@ const currentYear = computed(() => new Date().getFullYear())
   align-items: center;
   justify-content: center;
   gap: 1rem;
+  margin-bottom: 1.5rem;
+  
+  @media (max-width: 959px) {
+    justify-content: flex-start;
+    margin-bottom: 1.5rem;
+  }
+  
+  @media (max-width: 600px) {
+    margin-bottom: 1.25rem;
+  }
 }
 
 .footer-info-text {
@@ -75,6 +85,10 @@ const currentYear = computed(() => new Date().getFullYear())
   flex-direction: column;
   align-items: center;
   gap: 0.25rem;
+  
+  @media (max-width: 959px) {
+    align-items: flex-start;
+  }
 }
 
 .footer-label {

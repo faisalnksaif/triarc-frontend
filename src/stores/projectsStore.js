@@ -11,25 +11,25 @@ export const useProjectsStore = defineStore('projects', () => {
   const finishedProjects = ref([
     {
       id: 1,
-      title: 'LUXURY VILLA',
+      title: '',
       category: 'RESIDENTIAL',
       image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80',
     },
     {
       id: 2,
-      title: 'GRAND HOTEL',
+      title: '',
       category: 'COMMERCIAL',
       image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80',
     },
     {
       id: 3,
-      title: 'MODERN RESIDENCE',
+      title: '',
       category: 'RESIDENTIAL',
       image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80',
     },
     {
       id: 4,
-      title: 'BUSINESS CENTER',
+      title: '',
       category: 'COMMERCIAL',
       image: 'https://images.unsplash.com/photo-1486718448742-163732cd1544?w=800&q=80',
     },
@@ -38,37 +38,37 @@ export const useProjectsStore = defineStore('projects', () => {
   const ongoingProjects = ref([
     {
       id: 5,
-      title: 'Flagship Tower',
+      title: '',
       category: 'Residential',
       image: exterior1,
     },
     {
       id: 6,
-      title: 'Skyline Residences',
+      title: '',
       category: 'Residential',
       image: exterior2,
     },
     {
       id: 7,
-      title: 'Harborfront Plaza',
+      title: '',
       category: 'Residential',
       image: exterior3,
     },
     {
       id: 8,
-      title: 'Atrium Heights',
+      title: '',
       category: 'Residential',
       image: exteriorOption,
     },
     {
       id: 9,
-      title: 'Frontier Villas',
+      title: '',
       category: 'Residential',
       image: frontView,
     },
     {
       id: 10,
-      title: 'Civic Hub',
+      title: '',
       category: 'Residential',
       image: scene2,
     },
@@ -77,19 +77,19 @@ export const useProjectsStore = defineStore('projects', () => {
   const upcomingProjects = ref([
     {
       id: 8,
-      title: 'ECO RESORT',
+      title: '',
       category: 'HOSPITALITY',
       image: 'https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=800&q=80',
     },
     {
       id: 9,
-      title: 'MEDICAL CENTER',
+      title: '',
       category: 'HEALTHCARE',
       image: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=800&q=80',
     },
     {
       id: 10,
-      title: 'SPORTS COMPLEX',
+      title: '',
       category: 'INFRASTRUCTURE',
       image: 'https://images.unsplash.com/photo-1461078809327-72b0fb4f2916?w=800&q=80',
     },

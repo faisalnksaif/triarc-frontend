@@ -1,11 +1,11 @@
 <template>
   <section class="team-highlights">
     <v-container>
-      <h2 v-motion:fadeInUp class="section-title text-center">WHY CHOOSE US</h2>
+      <h2 class="section-title text-center">WHY CHOOSE US</h2>
       
       <v-row>
         <v-col v-for="(feature, index) in features" :key="feature.id" cols="12" md="6" lg="4">
-          <div v-motion:cyberFade="{ delay: index * 80 }" class="feature-card">
+          <div class="feature-card">
             <div class="feature-icon">
               <v-icon :icon="feature.icon" size="40"></v-icon>
             </div>
@@ -24,40 +24,40 @@ import { ref } from 'vue'
 const features = ref([
   {
     id: 1,
-    icon: 'mdi-lightbulb-on',
-    title: 'INNOVATIVE DESIGN',
-    description: 'Cutting-edge architectural solutions that push creative boundaries while maintaining functionality.'
+    icon: 'mdi-hammer-screwdriver',
+    title: 'EXPERT EXECUTION',
+    description: 'Master construction teams with deep technical expertise delivering flawless execution of complex architectural designs.'
   },
+  // {
+  //   id: 2,
+  //   icon: 'mdi-handshake',
+  //   title: 'ARCHITECT PARTNERSHIP',
+  //   description: 'We work seamlessly with architectural teams, respecting design intent while optimizing construction methods and timelines.'
+  // },
   {
     id: 2,
-    icon: 'mdi-handshake',
-    title: 'CLIENT FOCUSED',
-    description: 'Your vision is our priority. We collaborate closely to ensure every detail meets your expectations.'
+    icon: 'mdi-calendar-check',
+    title: 'RELIABLE DELIVERY',
+    description: 'Proven track record of on-time, on-budget project completion with transparent milestone tracking and communication.'
   },
+  // {
+  //   id: 4,
+  //   icon: 'mdi-leaf',
+  //   title: 'SUSTAINABLE PRACTICES',
+  //   description: 'Environmentally responsible construction methods and material selection supporting green building certification goals.'
+  // },
   {
     id: 3,
-    icon: 'mdi-chart-line',
-    title: 'PROVEN TRACK RECORD',
-    description: 'Decades of experience delivering exceptional projects on time and within budget.'
-  },
-  {
-    id: 4,
-    icon: 'mdi-leaf',
-    title: 'SUSTAINABLE DESIGN',
-    description: 'Environmentally conscious architecture that balances modern aesthetics with eco-friendly practices.'
-  },
-  {
-    id: 5,
     icon: 'mdi-tools',
-    title: 'TECHNICAL EXPERTISE',
-    description: 'Advanced building technologies and construction methods for superior quality results.'
+    title: 'ADVANCED TECHNIQUES',
+    description: 'Latest construction technologies, equipment, and methodologies ensuring structural integrity and operational excellence.'
   },
-  {
-    id: 6,
-    icon: 'mdi-shield-check',
-    title: 'QUALITY ASSURANCE',
-    description: 'Rigorous quality control at every stage ensures excellence in every completed project.'
-  }
+  // {
+  //   id: 6,
+  //   icon: 'mdi-shield-check',
+  //   title: 'UNCOMPROMISING QUALITY',
+  //   description: 'ISO-grade quality assurance, material testing, structural inspections, and compliance verification at every phase.'
+  // }
 ])
 </script>
 

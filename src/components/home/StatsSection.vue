@@ -1,10 +1,10 @@
 <template>
   <section class="stats-section" ref="statsSection">
     <v-container>
-      <h2 v-motion:fadeInDown class="stats-title">KEY METRICS</h2>
+      <h2 class="stats-title">KEY METRICS</h2>
       <v-row justify="center">
         <v-col v-for="(stat, index) in stats" :key="stat.id" cols="12" sm="6" md="3" class="stat-col">
-          <div v-motion:cyberFade="{ delay: index * 100 }" class="stat-card">
+          <div class="stat-card">
             <div class="stat-icon">
               <v-icon :icon="stat.icon" size="48"></v-icon>
             </div>
@@ -23,40 +23,49 @@ import { ref, onMounted, onUnmounted } from 'vue'
 const stats = ref([
   {
     id: 1,
-    icon: 'mdi-briefcase',
-    target: 150,
+    icon: 'mdi-crane',
+    target: 30,
     suffix: '+',
     decimals: 0,
     duration: 1200,
-    label: 'COMPLETED PROJECTS'
+    label: 'ACTIVE SITES'
   },
   {
     id: 2,
     icon: 'mdi-account-group',
-    target: 50,
+    target: 150,
     suffix: '+',
     decimals: 0,
     duration: 1200,
     label: 'TEAM MEMBERS'
   },
+  // {
+  //   id: 3,
+  //   icon: 'mdi-trophy',
+  //   target: 25,
+  //   suffix: '+',
+  //   decimals: 0,
+  //   duration: 1200,
+  //   label: 'AWARDS WON'
+  // },
   {
     id: 3,
-    icon: 'mdi-trophy',
-    target: 25,
+    icon: 'mdi-city',
+    target: 20,
     suffix: '+',
     decimals: 0,
     duration: 1200,
-    label: 'AWARDS WON'
+    label: 'CITIES COVERED'
   },
-  {
-    id: 4,
-    icon: 'mdi-star',
-    target: 4.9,
-    suffix: '/5',
-    decimals: 1,
-    duration: 1200,
-    label: 'CLIENT RATING'
-  }
+  // {
+  //   id: 4,
+  //   icon: 'mdi-star',
+  //   target: 4.9,
+  //   suffix: '/5',
+  //   decimals: 1,
+  //   duration: 1200,
+  //   label: 'CLIENT RATING'
+  // }
 ])
 
 const displayNumbers = ref(stats.value.map(() => 0))

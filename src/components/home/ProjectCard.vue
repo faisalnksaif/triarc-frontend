@@ -9,7 +9,7 @@
       <v-img
         :src="project.image"
         :alt="project.title"
-        height="400"
+        :height="isMobile ? 200 : 400"
         cover
         class="project-image"
         :class="{ 'project-image--hover': hover }"
@@ -25,7 +25,8 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { useDisplay } from 'vuetify'
 
 defineProps({
   project: {
@@ -35,6 +36,8 @@ defineProps({
 })
 
 const hover = ref(false)
+const { mobile } = useDisplay()
+const isMobile = computed(() => mobile.value)
 </script>
 
 <style scoped lang="scss">

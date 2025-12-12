@@ -11,7 +11,7 @@
       <v-row align="center" no-gutters>
         <v-col cols="auto">
           <div class="logo">
-            <span class="logo-text">TRIARC</span>
+            <img src="@/assets/images/logo.png" alt="Triarc logo" class="logo-img" />
           </div>
         </v-col>
 
@@ -23,7 +23,7 @@
             <a href="#about" class="nav-link">ABOUT</a>
             <a href="#projects" class="nav-link">PROJECTS</a>
             <a href="#services" class="nav-link">SERVICES</a>
-            <a href="#news" class="nav-link">NEWS</a>
+            <!-- <a href="#news" class="nav-link">NEWS</a> -->
             <a href="#contact" class="nav-link">CONTACT</a>
           </nav>
         </v-col>
@@ -68,7 +68,7 @@ const menuItems = [
   { title: 'ABOUT', href: '#about' },
   { title: 'PROJECTS', href: '#projects' },
   { title: 'SERVICES', href: '#services' },
-  { title: 'NEWS', href: '#news' },
+  // { title: 'NEWS', href: '#news' },
   { title: 'CONTACT', href: '#contact' },
 ]
 
@@ -101,6 +101,19 @@ onUnmounted(() => {
   font-weight: 700;
   letter-spacing: 3px;
   color: #aa8453;
+}
+
+.logo-img {
+  height: 120px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+  transition: transform 0.3s ease;
+}
+
+.logo:hover .logo-img {
+  transform: translateY(-2px) scale(1.02);
 }
 
 .nav-menu {

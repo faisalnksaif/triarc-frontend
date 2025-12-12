@@ -4,8 +4,9 @@
       <p class="testimonial-text">{{ testimonial.text }}</p>
       
       <div class="testimonial-author">
-        <v-avatar size="60" class="testimonial-avatar">
-          <v-img :src="testimonial.avatar" :alt="testimonial.author" cover />
+        <v-avatar size="60" class="testimonial-avatar" :color="testimonial.avatar ? undefined : '#aa8453'">
+          <v-img v-if="testimonial.avatar" :src="testimonial.avatar" :alt="testimonial.author" cover />
+          <span v-else class="avatar-initials">{{ testimonial.initials }}</span>
         </v-avatar>
         <div class="testimonial-info">
           <h4 class="testimonial-name">{{ testimonial.author }}</h4>
@@ -64,6 +65,13 @@ defineProps({
 
 .testimonial-avatar {
   border: 2px solid #aa8453;
+}
+
+.avatar-initials {
+  color: #ffffff;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 1px;
 }
 
 .testimonial-info {
