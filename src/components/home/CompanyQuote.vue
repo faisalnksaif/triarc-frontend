@@ -1,9 +1,9 @@
 <template>
-  <section class="video-promo-section">
-    <div class="video-promo-content">
-      <div class="video-promo-overlay"></div>
-      <div class="video-promo-inner">
-        <blockquote class="promo-quote">
+  <section class="company-quote-section">
+    <div class="quote-content">
+      <div class="quote-overlay"></div>
+      <div class="quote-inner">
+        <blockquote class="quote-text">
           <v-icon icon="mdi-format-quote-open" class="quote-icon quote-start"></v-icon>
           We deliver <span class="highlight-word">quality</span> work that reflects our <span class="highlight-word">pride</span> and meets our <span class="highlight-word pulse-word">customers'</span> expectations.
           <v-icon icon="mdi-format-quote-close" class="quote-icon quote-end"></v-icon>
@@ -13,12 +13,8 @@
   </section>
 </template>
 
-<script setup>
-// No video; displaying company quote in promo section
-</script>
-
 <style scoped lang="scss">
-.video-promo-section {
+.company-quote-section {
   position: relative;
   height: 500px;
   background-image: url('@/assets/images/projects/2.jpg');
@@ -32,7 +28,7 @@
   }
 }
 
-.video-promo-content {
+.quote-content {
   position: relative;
   height: 100%;
   display: flex;
@@ -40,25 +36,19 @@
   justify-content: center;
 }
 
-.video-promo-overlay {
+.quote-overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background: rgba(0, 0, 0, 0.6);
 }
 
-.video-promo-inner {
+.quote-inner {
   position: relative;
   z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   padding: 2rem;
 }
 
-.promo-quote {
+.quote-text {
   max-width: 900px;
   color: #ffffff;
   font-size: 1.75rem;
@@ -70,7 +60,6 @@
   font-style: italic;
   letter-spacing: 0.3px;
   padding: 1.5rem 2rem;
-  /* Typing animation */
   overflow: hidden;
   white-space: nowrap;
   border-right: 2px solid #aa8453;
@@ -89,7 +78,6 @@
 
 .quote-icon {
   color: #aa8453;
-  opacity: 1;
 }
 
 .quote-start {
@@ -120,35 +108,38 @@
     text-shadow: 0 0 0 rgba(248, 248, 248, 0);
   }
   50% {
-    transform: scale(2);
-    text-shadow: 0 0 12px rgb(133, 95, 48);
+    transform: scale(1.2);
+    text-shadow: 0 0 12px rgba(170, 132, 83, 0.6);
   }
 }
 
 @media (max-width: 600px) {
-  .promo-quote {
+  .quote-text {
     font-size: 1.25rem;
     white-space: normal;
     animation: none;
     border-right: none;
-    text-align: center;
     line-height: 1.6;
   }
   
   .quote-icon {
-    font-size: 1rem;
+    font-size: 1.5rem;
   }
   
-  .video-promo-inner {
+  .quote-inner {
     padding: 1rem;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .promo-quote {
+  .quote-text {
     animation: none;
     border-right: none;
     white-space: normal;
+  }
+  
+  .pulse-word {
+    animation: none;
   }
 }
 </style>

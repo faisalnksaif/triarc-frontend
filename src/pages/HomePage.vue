@@ -63,8 +63,8 @@
 
  
 
-      <!-- Video Promo Section -->
-      <VideoPromo />
+      <!-- Company Quote Section -->
+      <CompanyQuote />
 
 
 
@@ -130,20 +130,21 @@
 
 <script setup>
 import { storeToRefs } from 'pinia'
-import { ref, onMounted, onBeforeUnmount, computed } from 'vue'
+import { ref, onMounted, onBeforeUnmount, computed, defineAsyncComponent } from 'vue'
 import AppHeader from '@/components/layout/AppHeader.vue'
 import AppFooter from '@/components/layout/AppFooter.vue'
 import HeroSlider from '@/components/home/HeroSlider.vue'
-import ProjectsSection from '@/components/home/ProjectsSection.vue'
-import ServiceCard from '@/components/home/ServiceCard.vue'
-import NewsCard from '@/components/home/NewsCard.vue'
-import TestimonialCard from '@/components/home/TestimonialCard.vue'
-import VideoPromo from '@/components/home/VideoPromo.vue'
 import AboutSection from '@/components/home/AboutSection.vue'
 import StatsSection from '@/components/home/StatsSection.vue'
-import WhyChooseUs from '@/components/home/WhyChooseUs.vue'
-import CallToActionSection from '@/components/home/CallToActionSection.vue'
-import ActiveAreasMap from '@/components/home/ActiveAreasMap.vue'
+
+// Lazy load below-the-fold components
+const WhyChooseUs = defineAsyncComponent(() => import('@/components/home/WhyChooseUs.vue'))
+const ProjectsSection = defineAsyncComponent(() => import('@/components/home/ProjectsSection.vue'))
+const ActiveAreasMap = defineAsyncComponent(() => import('@/components/home/ActiveAreasMap.vue'))
+const ServiceCard = defineAsyncComponent(() => import('@/components/home/ServiceCard.vue'))
+const CompanyQuote = defineAsyncComponent(() => import('@/components/home/CompanyQuote.vue'))
+const TestimonialCard = defineAsyncComponent(() => import('@/components/home/TestimonialCard.vue'))
+const CallToActionSection = defineAsyncComponent(() => import('@/components/home/CallToActionSection.vue'))
 import { useServicesStore } from '@/stores/servicesStore'
 import { useNewsStore } from '@/stores/newsStore'
 import { useTestimonialsStore } from '@/stores/testimonialsStore'
@@ -167,25 +168,18 @@ const logoStyle = computed(() => ({
 }))
 
 const onHeroImagesLoaded = () => {
-  console.log('Hero images loaded')
   imagesLoaded.value = true
-  // Small delay before starting animation
   setTimeout(() => {
-    console.log('Starting logo animation to appbar')
     animatingLogo.value = true
   }, 300)
-  // Hide loading overlay after animation completes
   setTimeout(() => {
-    console.log('Hiding loading overlay')
     showLoading.value = false
   }, 1200)
 }
 
 onMounted(() => {
-  // Fallback: hide loading after max wait time
   const maxWaitTimeout = setTimeout(() => {
     if (showLoading.value) {
-      console.log('Timeout: hiding loading overlay')
       showLoading.value = false
     }
   }, 5000)

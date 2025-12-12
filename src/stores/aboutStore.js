@@ -4,8 +4,8 @@ import logo from '@/assets/images/logo.png'
 
 export const useAboutStore = defineStore('about', () => {
   const aboutData = ref({
-    title: 'ABOUT',
-    subtitle: logo,
+    title: `The triarc Story`,
+    subtitle: '',
     subtitleIsImage: true,
     subtitleWidth: 100,
     paragraphs: [

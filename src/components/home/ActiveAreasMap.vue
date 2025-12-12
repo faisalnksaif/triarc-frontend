@@ -85,33 +85,26 @@ onMounted(() => {
   initMap()
 })
 
-// Watch for visibility and animate maxZoom when section comes into view
+// Watch for visibility and animate zoom when section comes into view
 watch([isVisible, mapLoaded], ([visible, loaded]) => {
   if (visible && loaded && map) {
-    console.log('Starting zoom animation...')
-    // Add small delay to ensure map is fully ready
     setTimeout(() => {
       const startTime = Date.now()
       const duration = 1000
-      const targetMaxZoom = 15//mobile.value ? 8 : 4
+      const targetMaxZoom = mobile.value ? 8 : 6
+      const targetZoom = mobile.value ? 6 : 6
       
       const animateZoom = () => {
         const elapsed = Date.now() - startTime
         const progress = Math.min(elapsed / duration, 1)
-        
-        // Animate zoom from 0 to 3
-        const currentZoom = progress * 6
-        // Animate maxZoom from 0 to targetMaxZoom (6 on mobile, 4 on desktop)
+        const currentZoom = progress * targetZoom
         const currentMaxZoom = progress * targetMaxZoom
         
-        console.log('Zoom:', currentZoom, 'MaxZoom:', currentMaxZoom)
         map.setZoom(currentZoom)
         map.setMaxZoom(currentMaxZoom)
         
         if (progress < 1) {
           requestAnimationFrame(animateZoom)
-        } else {
-          console.log('Zoom animation complete')
         }
       }
       
@@ -160,7 +153,6 @@ async function initMap() {
     })
 
     map.on('load', () => {
-      console.log('Map loaded')
       mapLoaded.value = true
       const bounds = new window.mapboxgl.LngLatBounds()
 

@@ -6,14 +6,14 @@
           <div class="about-content">
             <h2 class="about-title">
               {{ aboutData.title }}
-              <span class="about-subtitle">
+              <!-- <span class="about-subtitle">
                 <template v-if="aboutData.subtitleIsImage">
                   <img :src="aboutData.subtitle" alt="Triarc logo" :width="aboutData.subtitleWidth || 100" class="about-subtitle-logo" />
                 </template>
                 <template v-else>
                   {{ aboutData.subtitle }}
                 </template>
-              </span>
+              </span> -->
             </h2>
             <div class="about-text">
               <p v-for="(paragraph, index) in aboutData.paragraphs" :key="index" class="about-paragraph">

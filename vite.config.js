@@ -13,5 +13,24 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vuetify': ['vuetify'],
+          'swiper': ['swiper'],
+          'vendor': ['vue', 'vue-router', 'pinia']
+        }
+      }
+    },
+    cssCodeSplit: true,
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true
+      }
+    }
   }
 })

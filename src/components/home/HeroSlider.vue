@@ -61,9 +61,7 @@ let interval
 
 const checkImagesLoaded = () => {
   imagesLoadedCount.value++
-  // Emit when all slide images are loaded
   if (imagesLoadedCount.value === slides.value.length) {
-    console.log('All hero images loaded')
     emit('images-loaded')
   }
 }

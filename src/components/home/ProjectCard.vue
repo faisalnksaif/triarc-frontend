@@ -11,6 +11,7 @@
         :alt="project.title"
         :height="isMobile ? 200 : 400"
         cover
+        loading="lazy"
         class="project-image"
         :class="{ 'project-image--hover': hover }"
       />
